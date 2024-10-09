@@ -22,4 +22,7 @@ plugins {
     id "org.jetbrains.kotlin.android" version "1.8.22" apply false
 }
 
-include ":app"
+include ':app'
+include ':motion_sensors'
+project(':motion_sensors').projectDir = new File(rootProject.projectDir, '../.pub-cache/hosted/pub.dartlang.org/motion_sensors-0.1.0/android')
+

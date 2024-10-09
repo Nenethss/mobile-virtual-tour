@@ -3,6 +3,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:latlong2/latlong.dart';
+import 'package:myflutter/webview.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class MarkerData {
@@ -49,17 +50,24 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   Future<void> fetchMarkers() async {
-    final response =
-        await http.get(Uri.parse('http://192.168.100.2:3002/backend/pins'));
+    try {
+      final response =
+          await http.get(Uri.parse('http://10.0.2.2:3002/backend/pins'));
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
 
-    if (response.statusCode == 200) {
-      List jsonResponse = json.decode(response.body);
-      setState(() {
-        markers =
-            jsonResponse.map((marker) => MarkerData.fromJson(marker)).toList();
-      });
-    } else {
-      throw Exception('Failed to load markers');
+      if (response.statusCode == 200) {
+        List jsonResponse = json.decode(response.body);
+        setState(() {
+          markers = jsonResponse
+              .map((marker) => MarkerData.fromJson(marker))
+              .toList();
+        });
+      } else {
+        throw Exception('Failed to load markers');
+      }
+    } catch (e) {
+      print('Error: $e');
     }
   }
 
@@ -72,8 +80,8 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void _showMarkerDetails(MarkerData marker) {
-    const String baseUrl =
-        'http://localhost:3002/backend/images/'; // Adjust based on your image path
+    const String baseUrl = 'http://10.0.2.2:3002/backend/images/';
+    // Adjust based on your image path
 
     showDialog(
       context: context,
@@ -141,7 +149,14 @@ class _MapScreenState extends State<MapScreen> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      // Handle "Enter Virtual Tour" action here
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => PanoramaScreen(
+                            imageUrl: baseUrl +
+                                marker.image, // Construct the full URL
+                          ),
+                        ),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
@@ -175,13 +190,21 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       body: FlutterMap(
         options: const MapOptions(
-          initialCenter: LatLng(14.482797, 121.187643), // Set initial center
-          initialZoom: 19.5, // Set initial zoom level
+          initialCenter: LatLng(14.485300, 121.190000), // Set initial center
+          initialZoom: 17, // Set initial zoom level
         ),
         children: [
-          TileLayer(
-            urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-            userAgentPackageName: 'com.example.app',
+          OverlayImageLayer(
+            overlayImages: [
+              OverlayImage(
+                // Unrotated
+                bounds: LatLngBounds(
+                  const LatLng(14.480470, 121.187700),
+                  const LatLng(14.490150, 121.192350),
+                ),
+                imageProvider: const AssetImage('assets/FloorMap.jpeg'),
+              ),
+            ],
           ),
           MarkerLayer(
             markers: markers.map((marker) {
