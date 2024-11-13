@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:myflutter/components/webview.dart';
+import 'package:myflutter/components/virtual_tour.dart';
 import 'package:myflutter/model/marker.dart';
 
 class MarkerDetailsDialog extends StatelessWidget {
   final MarkerModel marker;
-  final String baseUrl;
 
   const MarkerDetailsDialog({
     required this.marker,
-    required this.baseUrl,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Colors.black.withOpacity(0.75),
+      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       insetPadding: EdgeInsets.zero,
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       child: Container(
@@ -32,14 +30,16 @@ class MarkerDetailsDialog extends StatelessWidget {
                 Transform.translate(
                   offset: const Offset(-10, 0),
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: Colors.white),
+                    icon: const Icon(Icons.arrow_back,
+                        color: Color.fromARGB(255, 0, 0, 0)),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
                 Expanded(
                   child: Text(
                     marker.title,
-                    style: const TextStyle(fontSize: 25, color: Colors.white),
+                    style: const TextStyle(
+                        fontSize: 25, color: Color.fromARGB(255, 0, 0, 0)),
                     textAlign: TextAlign.right,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -54,7 +54,8 @@ class MarkerDetailsDialog extends StatelessWidget {
                   children: [
                     Text(
                       marker.description,
-                      style: const TextStyle(color: Colors.white, fontSize: 17),
+                      style: const TextStyle(
+                          color: Color.fromARGB(255, 0, 0, 0), fontSize: 17),
                       textAlign: TextAlign.justify,
                     ),
                   ],
@@ -67,22 +68,23 @@ class MarkerDetailsDialog extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) =>
-                          PanoramaScreen(imageUrl: baseUrl + marker.image),
+                      builder: (context) => PanoramaScreen(
+                          imageUrl: marker.image), // Use marker.image directly
                     ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 105, vertical: 10),
+                      const EdgeInsets.symmetric(horizontal: 85, vertical: 10),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5),
                   ),
-                  backgroundColor: Colors.grey[800],
+                  backgroundColor: const Color.fromARGB(255, 0, 0, 0),
                 ),
                 child: const Text(
                   'Enter Virtual Tour',
-                  style: TextStyle(color: Colors.white, fontSize: 18),
+                  style: TextStyle(
+                      color: Color.fromARGB(255, 255, 255, 255), fontSize: 18),
                   textAlign: TextAlign.center,
                 ),
               ),

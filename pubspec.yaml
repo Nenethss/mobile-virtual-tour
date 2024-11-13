@@ -42,6 +42,11 @@ dependencies:
   panorama_viewer: ^2.0.0
   flutter_cube: ^0.1.1
   dchs_motion_sensors: ^2.0.0
+  flutter_dotenv: ^5.1.0
+  dio: ^5.7.0
+  flutter_riverpod: ^2.5.1
+  fquery: ^1.4.0-beta.1
+  flutter_markdown: ^0.7.4
 
 dev_dependencies:
   flutter_test:
@@ -69,7 +74,10 @@ flutter:
   assets:
     - assets/court.JPG
     - assets/FloorMap.jpeg
-
+    - assets/logo.jpg
+    - assets/amico.png
+    - assets/full_float1.gif
+    - .env
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
 

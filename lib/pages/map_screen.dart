@@ -6,7 +6,8 @@ import 'package:myflutter/components/dialog_form.dart';
 import 'package:myflutter/components/map_overlay.dart';
 import 'package:myflutter/components/marker.dart';
 import 'package:myflutter/model/marker.dart';
-import 'package:myflutter/services/map_service.dart';
+import 'package:myflutter/services/mapping_service.dart';
+import 'package:myflutter/components/map_drawer.dart'; // Import MapDrawer
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key});
@@ -31,8 +32,7 @@ class _MapScreenState extends State<MapScreen> {
     try {
       String filename = await _mapService.fetchCurrentMap();
       setState(() {
-        mapOverlayUrl =
-            'http://192.168.100.2:3002/server/images/maps/$filename';
+        mapOverlayUrl = filename;
       });
     } catch (e) {
       if (kDebugMode) {
@@ -55,12 +55,10 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void _showMarkerDetails(MarkerModel marker) {
-    const String baseUrl = 'http://192.168.100.2:3002/server/images/360/';
-
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return MarkerDetailsDialog(marker: marker, baseUrl: baseUrl);
+        return MarkerDetailsDialog(marker: marker);
       },
     );
   }
@@ -68,12 +66,39 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon:
+              const Icon(Icons.arrow_back, color: Color.fromARGB(255, 0, 0, 0)),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        backgroundColor: Colors.white,
+        actions: [
+          Builder(
+            builder: (context) => IconButton(
+              icon: const Icon(Icons.menu, color: Color.fromARGB(255, 0, 0, 0)),
+              onPressed: () {
+                Scaffold.of(context).openEndDrawer();
+              },
+            ),
+          ),
+        ],
+      ),
+      backgroundColor: Colors.white,
+      endDrawer: MapDrawer(
+        markers: markers,
+        onMarkerTap: _showMarkerDetails,
+      ), // Pass markers to MapDrawer
       body: FlutterMap(
         options: const MapOptions(
-          initialCenter: LatLng(14.485300, 121.190000),
+          initialCenter: LatLng(14.484750, 121.189000),
           initialZoom: 17,
-          minZoom: 17,
-          maxZoom: 17,
+          minZoom: 16,
+          maxZoom: 19,
+          interactionOptions: const InteractionOptions(
+              flags: InteractiveFlag.pinchZoom | InteractiveFlag.drag),
         ),
         children: [
           MapOverlayWidget(mapOverlayUrl: mapOverlayUrl),

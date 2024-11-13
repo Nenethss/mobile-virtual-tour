@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:myflutter/pages/map_screen.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:myflutter/pages/loading_screen.dart'; // Import the HomeScreen
 
-void main() {
-  runApp(const MyApp());
+Future main() async {
+  await dotenv.load(fileName: '.env');
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,10 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.from(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)),
       debugShowCheckedModeBanner: false,
-      home: Container(
-        color: Colors.grey.shade100,
-        child: const SafeArea(child: MapScreen()),
-      ),
+      home: const LoadingScreen(), // Use HomeScreen here
     );
   }
 }

@@ -9,18 +9,21 @@ class MapOverlayWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return mapOverlayUrl.isNotEmpty
-        ? OverlayImageLayer(
-            overlayImages: [
-              OverlayImage(
-                bounds: LatLngBounds(
-                  const LatLng(14.480770, 121.187900),
-                  const LatLng(14.490150, 121.192350),
+    return Container(
+      color: Colors.white, // Set the background color here
+      child: mapOverlayUrl.isNotEmpty
+          ? OverlayImageLayer(
+              overlayImages: [
+                OverlayImage(
+                  bounds: LatLngBounds(
+                    const LatLng(14.480740, 121.184750),
+                    const LatLng(14.488870, 121.192500),
+                  ),
+                  imageProvider: NetworkImage(mapOverlayUrl),
                 ),
-                imageProvider: NetworkImage(mapOverlayUrl),
-              ),
-            ],
-          )
-        : const SizedBox.shrink(); // Return empty space if no map URL
+              ],
+            )
+          : const SizedBox.shrink(), // Return empty space if no map URL
+    );
   }
 }
