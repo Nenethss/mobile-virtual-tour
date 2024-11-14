@@ -10,7 +10,7 @@ class MapOverlayWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white, // Set the background color here
+      color: Colors.white,
       child: mapOverlayUrl.isNotEmpty
           ? OverlayImageLayer(
               overlayImages: [
@@ -23,7 +23,7 @@ class MapOverlayWidget extends StatelessWidget {
                 ),
               ],
             )
-          : const SizedBox.shrink(), // Return empty space if no map URL
+          : const SizedBox.shrink(),
     );
   }
 }

@@ -13,14 +13,12 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Logo in the center
               Image.asset(
-                'assets/logo.jpg', // Replace with your logo path
-                width: 200, // Adjust width as needed
-                height: 200, // Adjust height as needed
+                'assets/logo.jpg',
+                width: 200,
+                height: 200,
               ),
-              const SizedBox(height: 40), // Space between logo and buttons
-              // Buttons in a horizontal row, evenly spaced
+              const SizedBox(height: 40),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -44,11 +42,10 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // Reusable button widget
   Widget _buildNavigationButton(BuildContext context,
       {required String label, required Widget destination}) {
     return SizedBox(
-      width: 150, // Adjust width as needed
+      width: 150,
       child: ElevatedButton(
         onPressed: () {
           Navigator.push(

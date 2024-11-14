@@ -19,10 +19,8 @@ class MapDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
-          // Custom header with reduced height
           Container(
-            height:
-                80, // Set custom height here (default DrawerHeader height is 200)
+            height: 80,
             color: const Color.fromARGB(255, 0, 141, 197),
             alignment: Alignment.centerLeft,
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -31,13 +29,12 @@ class MapDrawer extends StatelessWidget {
               style: TextStyle(fontSize: 24, color: Colors.white),
             ),
           ),
-          // List of clickable markers
           ...markers.map((marker) {
             return ListTile(
               title: Text(marker.title),
               onTap: () {
-                Navigator.of(context).pop(); // Close the drawer
-                onMarkerTap(marker); // Call the onMarkerTap callback
+                Navigator.of(context).pop();
+                onMarkerTap(marker);
               },
             );
           }).toList(),

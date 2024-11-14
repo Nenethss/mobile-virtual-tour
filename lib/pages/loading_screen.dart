@@ -5,13 +5,11 @@ class LoadingScreen extends StatefulWidget {
   const LoadingScreen({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _LoadingScreenState createState() => _LoadingScreenState();
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
-  Color _backgroundColor =
-      const Color.fromARGB(255, 18, 165, 188); // Initial blue background
+  Color _backgroundColor = const Color.fromARGB(255, 18, 165, 188);
   bool _showLogo = false;
   bool _showLoadingIndicator = false;
   bool _showSplashContent = false;
@@ -19,43 +17,36 @@ class _LoadingScreenState extends State<LoadingScreen> {
   @override
   void initState() {
     super.initState();
-
-    // Step 1: Transition background color from blue to white
     Future.delayed(const Duration(seconds: 1), () {
       setState(() {
-        _backgroundColor = Colors.white; // Transition to white background
+        _backgroundColor = Colors.white;
       });
     });
 
-    // Step 2: Fade in the logo after 3 seconds (background turns white)
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
         _showLogo = true;
       });
     });
 
-    // Step 3: Fade out the logo after 3 seconds (logo fades out)
     Future.delayed(const Duration(seconds: 5), () {
       setState(() {
         _showLogo = false;
       });
     });
 
-    // Step 4: Fade in the loading indicator after 3 seconds (logo fades out)
     Future.delayed(const Duration(seconds: 7), () {
       setState(() {
         _showLoadingIndicator = true;
       });
     });
 
-    // Step 5: Fade out the loading indicator after 3 seconds (loading fades out)
     Future.delayed(const Duration(seconds: 8), () {
       setState(() {
         _showLoadingIndicator = false;
       });
     });
 
-    // Step 6: Fade in the splash content after 3 seconds (loading fades out)
     Future.delayed(const Duration(seconds: 11), () {
       setState(() {
         _showSplashContent = true;
@@ -67,30 +58,26 @@ class _LoadingScreenState extends State<LoadingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AnimatedContainer(
-        duration:
-            const Duration(seconds: 2), // Background color transition duration
+        duration: const Duration(seconds: 2),
         color: _backgroundColor,
         child: Center(
           child: Stack(
             alignment: Alignment.center,
             children: [
-              // Logo that fades in and fades out in 3 seconds
               AnimatedOpacity(
                 opacity: _showLogo ? 1.0 : 0.0,
                 duration: const Duration(seconds: 2),
                 child: Image.asset(
-                  'assets/logo.jpg', // Replace with your logo path
+                  'assets/logo.jpg',
                   width: 200,
                   height: 200,
                 ),
               ),
-              // CircularProgressIndicator that fades in and fades out in 3 seconds
               AnimatedOpacity(
                 opacity: _showLoadingIndicator ? 1.0 : 0.0,
                 duration: const Duration(seconds: 2),
                 child: const CircularProgressIndicator(),
               ),
-              // Final splash content that fades in for 3 seconds
               AnimatedOpacity(
                 opacity: _showSplashContent ? 1.0 : 0.0,
                 duration: const Duration(seconds: 2),
@@ -99,12 +86,12 @@ class _LoadingScreenState extends State<LoadingScreen> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Image.asset(
-                            'assets/logo.jpg', // Replace with your logo or another image
+                            'assets/logo.jpg',
                             width: 150,
                             height: 150,
                           ),
                           Image.asset(
-                            'assets/amico.png', // Replace with your logo or another image
+                            'assets/amico.png',
                             width: 350,
                             height: 350,
                           ),
@@ -131,8 +118,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
                               ),
                             ),
                           ),
-                          const SizedBox(
-                              height: 50), // Add space before the button
+                          const SizedBox(height: 50),
                           ElevatedButton(
                             onPressed: () {
                               Navigator.push(
@@ -145,12 +131,10 @@ class _LoadingScreenState extends State<LoadingScreen> {
                               backgroundColor:
                                   const Color.fromARGB(255, 18, 165, 188),
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(
-                                    10), // Set the border radius
+                                borderRadius: BorderRadius.circular(10),
                               ),
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 115,
-                                  vertical: 15), // Adjust padding as needed
+                                  horizontal: 115, vertical: 15),
                             ),
                             child: const Text(
                               'Get Started',

@@ -20,16 +20,14 @@ class PanoramaScreen extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       body: Container(
-        color: Colors.black, // Set the background color for the entire screen
+        color: Colors.black,
         child: Center(
           child: PanoramaViewer(
             child: Image.network(
               imageUrl,
-              fit:
-                  BoxFit.cover, // Ensures the image scales to fit the container
+              fit: BoxFit.cover,
               errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.error,
-                    color: Colors.red); // Error icon if the image fails to load
+                return const Icon(Icons.error, color: Colors.red);
               },
             ),
           ),

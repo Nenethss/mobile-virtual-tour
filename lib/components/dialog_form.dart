@@ -68,8 +68,8 @@ class MarkerDetailsDialog extends StatelessWidget {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => PanoramaScreen(
-                          imageUrl: marker.image), // Use marker.image directly
+                      builder: (context) =>
+                          PanoramaScreen(imageUrl: marker.image),
                     ),
                   );
                 },
