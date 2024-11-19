@@ -23,6 +23,13 @@ class PanoramaScreen extends StatelessWidget {
         color: Colors.black,
         child: Center(
           child: PanoramaViewer(
+             latitude: 0,
+            longitude: 0,
+            zoom: 1.0,
+            minLatitude: 0.0,
+            maxLatitude: 0.0,
+            minLongitude: -180.0,
+            maxLongitude: 180.0,
             child: Image.network(
               imageUrl,
               fit: BoxFit.cover,
